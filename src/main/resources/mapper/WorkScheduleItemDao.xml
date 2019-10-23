@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.heming.dao.WorkScheduleItemDao">
+  <resultMap id="BaseResultMap" type="cn.heming.domain.WorkScheduleItem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="work_schedule_id" jdbcType="INTEGER" property="workScheduleId" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="cost_time" jdbcType="DECIMAL" property="costTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ts" jdbcType="TIMESTAMP" property="ts" />
+    <result column="yn" jdbcType="TINYINT" property="yn" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, work_schedule_id, item_name, cost_time, create_time, update_time, ts, yn
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from work_schedule_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from work_schedule_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.heming.domain.WorkScheduleItem" useGeneratedKeys="true">
+    insert into work_schedule_item (work_schedule_id, item_name, cost_time, 
+      create_time, update_time,
+      yn)
+    values (#{workScheduleId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{costTime,jdbcType=DECIMAL}, 
+      NOW(), NOW(),
+      1)
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.heming.domain.WorkScheduleItem" useGeneratedKeys="true">
+    insert into work_schedule_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="workScheduleId != null">
+        work_schedule_id,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="costTime != null">
+        cost_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+      <if test="yn != null">
+        yn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="workScheduleId != null">
+        #{workScheduleId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="costTime != null">
+        #{costTime,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yn != null">
+        #{yn,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.heming.domain.WorkScheduleItem">
+    update work_schedule_item
+    <set>
+      <if test="workScheduleId != null">
+        work_schedule_id = #{workScheduleId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="costTime != null">
+        cost_time = #{costTime,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yn != null">
+        yn = #{yn,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.heming.domain.WorkScheduleItem">
+    update work_schedule_item
+    set work_schedule_id = #{workScheduleId,jdbcType=INTEGER},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      cost_time = #{costTime,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ts = #{ts,jdbcType=TIMESTAMP},
+      yn = #{yn,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
